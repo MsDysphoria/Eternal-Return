@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Article</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 48px;
+  background: transparent;
+  color: #eee;
+  font-family: system-ui, serif;
+  line-height: 1.7;
+  font-size: 17px;
+  white-space: pre-wrap;
+}
+</style>
+</head>
+
+<body id="content">
+Loading article…
+</body>
+
+<script>
+const src = new URLSearchParams(location.search).get("src");
+
+if (!src) {
+  document.body.textContent = "No article selected.";
+} else {
+  fetch(src)
+    .then(r => r.ok ? r.text() : Promise.reject())
+    .then(text => document.body.textContent = text)
+    .catch(() => {
+      document.body.textContent = "Failed to load article.";
+    });
+}
+</script>
+</html>
